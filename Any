@@ -1,32 +1,36 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#020502">
-<meta name="description" content="00:00 ANY — The signal is approaching.">
+<meta name="theme-color" content="#030604">
+<meta name="description" content="00:00 ANY :)">
 <title>00:00 ANY</title>
 
 <style>
 :root {
-  --green: #00ff41;
-  --dark-green: #008f11;
-  --black: #020502;
+  --green: #39ff78;
+  --muted: #63836c;
+  --bg: #030604;
 }
 
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
 }
 
 body {
-  background: var(--black);
-  color: white;
-  font-family: Consolas, "Courier New", monospace;
   min-height: 100vh;
   overflow: hidden;
+  background: var(--bg);
+  color: #f0f5f1;
+  font-family: "Courier New", monospace;
 }
 
 #matrix {
@@ -34,192 +38,240 @@ body {
   inset: 0;
   width: 100%;
   height: 100%;
-  opacity: .65;
-  z-index: 0;
+  opacity: .23;
+  pointer-events: none;
 }
 
 body::after {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: 1;
   pointer-events: none;
-  background: repeating-linear-gradient(
-    transparent 0px,
-    rgba(0, 0, 0, .12) 1px,
-    transparent 2px,
-    transparent 4px
-  );
+  background:
+    radial-gradient(ellipse at center,
+      #030604 0%,
+      rgba(3, 6, 4, .96) 25%,
+      rgba(3, 6, 4, .55) 65%,
+      rgba(3, 6, 4, .2) 100%);
 }
 
-.screen {
+.page {
   position: relative;
-  z-index: 2;
+  z-index: 1;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 28px;
-}
-
-.top, .bottom {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  color: var(--green);
-  font-size: 11px;
-  letter-spacing: 2px;
+  justify-content: center;
+  padding: 30px 20px;
 }
 
 .status {
+  position: absolute;
+  top: 32px;
+  left: 36px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
+  color: #779681;
+  font-size: 10px;
+  letter-spacing: 2px;
 }
 
 .dot {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   background: var(--green);
   border-radius: 50%;
-  box-shadow: 0 0 12px var(--green);
-  animation: blink 1.5s infinite;
+  box-shadow: 0 0 10px rgba(57, 255, 120, .7);
+  animation: pulse 2s infinite;
 }
 
-main {
+.top-right {
+  position: absolute;
+  top: 32px;
+  right: 36px;
+  color: #456b4e;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.content {
   width: 100%;
-  max-width: 760px;
-  margin: auto;
+  max-width: 680px;
   text-align: center;
-  padding: 60px 0;
+  animation: appear 1.5s ease both;
 }
 
-.eyebrow {
-  color: var(--dark-green);
+.signature {
+  color: var(--green);
   font-size: 11px;
   letter-spacing: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 26px;
 }
 
 h1 {
-  font-size: clamp(48px, 11vw, 100px);
-  letter-spacing: 5px;
-  font-weight: 900;
-  color: white;
-  text-shadow: 0 0 24px rgba(0,255,65,.22);
-  animation: flicker 7s infinite;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(46px, 9vw, 82px);
+  font-weight: 500;
+  letter-spacing: -3px;
+  line-height: 1.1;
 }
 
 h1 span {
   color: var(--green);
+  font-weight: 700;
 }
 
 .subtitle {
-  color: #7a9c80;
+  margin-top: 18px;
+  color: #84978a;
   font-size: 11px;
-  letter-spacing: 4px;
-  margin-top: 16px;
+  letter-spacing: 3px;
 }
 
-.line {
+.divider {
+  width: 46px;
   height: 1px;
-  width: 100%;
-  margin: 42px 0 28px;
-  background: linear-gradient(
-    90deg, transparent, var(--dark-green), transparent
-  );
+  margin: 42px auto;
+  background: var(--green);
+  opacity: .65;
 }
 
 .countdown {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  gap: 24px;
 }
 
 .unit {
-  border: 1px solid rgba(0,255,65,.18);
-  background: rgba(0,10,2,.72);
-  padding: 22px 4px;
+  min-width: 0;
 }
 
 .number {
   display: block;
-  font-size: clamp(27px, 6vw, 48px);
-  color: white;
-  font-weight: bold;
+  color: #f4f7f4;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(34px, 7vw, 58px);
+  font-weight: 400;
   font-variant-numeric: tabular-nums;
+  letter-spacing: -2px;
 }
 
 .label {
   display: block;
-  margin-top: 10px;
-  color: var(--dark-green);
+  margin-top: 13px;
+  color: var(--muted);
   font-size: 9px;
   letter-spacing: 2px;
 }
 
 .date {
+  margin-top: 34px;
   color: var(--green);
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 3px;
-  margin-top: 28px;
 }
 
 .message {
   margin-top: 22px;
-  color: #6b8870;
+  color: #718478;
   font-size: 11px;
-  letter-spacing: 2px;
-  line-height: 1.8;
-}
-
-.terminal {
-  margin: 30px auto 0;
-  color: #16782c;
-  font-size: 10px;
+  letter-spacing: 1px;
   line-height: 2;
-  text-align: left;
-  max-width: 420px;
-  overflow-wrap: anywhere;
-}
-
-.cursor {
-  display: inline-block;
-  width: 7px;
-  height: 12px;
-  background: var(--green);
-  vertical-align: middle;
-  animation: blink .8s infinite;
 }
 
 .bottom {
-  color: #267538;
-  font-size: 9px;
+  position: absolute;
+  bottom: 28px;
+  left: 36px;
+  right: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #526958;
+  font-size: 10px;
   letter-spacing: 1px;
 }
 
-@keyframes blink {
-  50% { opacity: 0; }
+.smile {
+  color: var(--green);
+  font-size: 15px;
+  letter-spacing: 0;
 }
 
-@keyframes flicker {
-  0%, 94%, 96%, 100% { opacity: 1; }
-  95% { opacity: .72; }
+@keyframes pulse {
+  50% {
+    opacity: .35;
+    box-shadow: 0 0 2px var(--green);
+  }
 }
 
-@media (max-width: 480px) {
-  .screen { padding: 20px 15px; }
-  .top, .bottom { font-size: 8px; letter-spacing: 1px; }
-  .countdown { gap: 5px; }
-  .unit { padding: 17px 2px; }
-  .label { font-size: 7px; letter-spacing: 1px; }
-  .subtitle { font-size: 9px; letter-spacing: 2px; }
-  .terminal { font-size: 9px; }
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 500px) {
+  .status {
+    top: 22px;
+    left: 18px;
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+
+  .top-right {
+    top: 22px;
+    right: 18px;
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+
+  .countdown {
+    gap: 8px;
+  }
+
+  .number {
+    font-size: clamp(29px, 8vw, 42px);
+  }
+
+  .label {
+    font-size: 7px;
+    letter-spacing: 1px;
+  }
+
+  .date {
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+
+  .bottom {
+    left: 18px;
+    right: 18px;
+    bottom: 20px;
+    font-size: 8px;
+  }
+
+  .subtitle {
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+
+  .divider {
+    margin: 32px auto;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; }
+  *, *::before, *::after {
+    animation: none !important;
+  }
 }
 </style>
 </head>
@@ -227,136 +279,128 @@ h1 span {
 <body>
 <canvas id="matrix" aria-hidden="true"></canvas>
 
-<div class="screen">
-  <header class="top">
-    <div class="status">
-      <span class="dot"></span>
-      <span>SYSTEM ONLINE</span>
-    </div>
-    <span>ANONYMOUS / 001</span>
-  </header>
+<div class="page">
+  <div class="status">
+    <span class="dot"></span>
+    <span>SYSTEM ONLINE</span>
+  </div>
 
-  <main>
-    <p class="eyebrow">[ INCOMING TRANSMISSION ]</p>
+  <div class="top-right">UNKNOWN / 001</div>
+
+  <main class="content">
+    <p class="signature">[ NO IDENTITY ]</p>
 
     <h1>00:00 <span>ANY</span></h1>
 
-    <p class="subtitle">SOMETHING WILL HAPPEN.</p>
+    <p class="subtitle">YOU FOUND YOUR WAY HERE.</p>
 
-    <div class="line"></div>
+    <div class="divider"></div>
 
-    <section class="countdown" aria-label="Contagem regressiva">
+    <section class="countdown">
       <div class="unit">
         <span class="number" id="days">00</span>
         <span class="label">DAYS</span>
       </div>
+
       <div class="unit">
         <span class="number" id="hours">00</span>
         <span class="label">HOURS</span>
       </div>
+
       <div class="unit">
         <span class="number" id="minutes">00</span>
         <span class="label">MINUTES</span>
       </div>
+
       <div class="unit">
         <span class="number" id="seconds">00</span>
         <span class="label">SECONDS</span>
       </div>
     </section>
 
-    <p class="date">01 / 11 / 2026 — 00:00 BRT</p>
+    <p class="date">01.11.2026 — 00:00 BRT</p>
 
     <p class="message" id="message">
-      THE SIGNAL IS APPROACHING.<br>
-      YOUR TIME IS RUNNING OUT.
+      NO EXPLANATIONS.<br>
+      JUST WAIT.
     </p>
-
-    <div class="terminal">
-      <p>&gt; initializing connection...</p>
-      <p>&gt; source: <span id="source">UNKNOWN</span></p>
-      <p>&gt; encryption: ACTIVE</p>
-      <p>&gt; awaiting signal<span class="cursor"></span></p>
-    </div>
   </main>
 
   <footer class="bottom">
-    <span>© 2026 — 00:00 ANY</span>
-    <span>IDENTITY UNKNOWN</span>
+    <span>00:00 ANY — 2026</span>
+    <span class="smile">:)</span>
+    <span>SEE YOU AT ZERO.</span>
   </footer>
 </div>
 
 <script>
-/* MATRIX BACKGROUND */
 const canvas = document.getElementById("matrix");
 const ctx = canvas.getContext("2d");
-
-const alphabet = "アカサタナハマヤラワ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&<>/";
+const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZアイウエオカキクケコ#$%";
 const fontSize = 15;
+
 let columns = 0;
 let drops = [];
 
-function resizeMatrix() {
+function resize() {
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  canvas.width = Math.floor(innerWidth * dpr);
-  canvas.height = Math.floor(innerHeight * dpr);
+
+  canvas.width = innerWidth * dpr;
+  canvas.height = innerHeight * dpr;
   canvas.style.width = innerWidth + "px";
   canvas.style.height = innerHeight + "px";
+
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
   columns = Math.ceil(innerWidth / fontSize);
   drops = Array.from(
     { length: columns },
-    () => Math.random() * -innerHeight / fontSize
+    () => Math.random() * -100
   );
 }
 
-function drawMatrix() {
-  ctx.fillStyle = "rgba(2, 5, 2, 0.09)";
+function draw() {
+  ctx.fillStyle = "rgba(3, 6, 4, 0.12)";
   ctx.fillRect(0, 0, innerWidth, innerHeight);
   ctx.font = fontSize + "px monospace";
 
   for (let i = 0; i < columns; i++) {
-    const char = alphabet[Math.floor(Math.random() * alphabet.length)];
+    const char = chars[Math.floor(Math.random() * chars.length)];
     const x = i * fontSize;
     const y = drops[i] * fontSize;
 
-    ctx.fillStyle = Math.random() > 0.975 ? "#d7ffe0" : "#00ff41";
+    ctx.fillStyle = Math.random() > 0.96
+      ? "#baffca"
+      : "#00d94b";
+
     ctx.fillText(char, x, y);
 
     if (y > innerHeight && Math.random() > 0.975) {
-      drops[i] = 0;
+      drops[i] = Math.random() * -20;
     } else {
-      drops[i] += 0.55;
+      drops[i] += 0.45;
     }
   }
 }
 
-let matrixFrame;
-let lastDraw = 0;
+let lastFrame = 0;
 
-function animateMatrix(timestamp) {
-  if (timestamp - lastDraw > 45) {
-    drawMatrix();
-    lastDraw = timestamp;
+function animate(time) {
+  if (time - lastFrame > 55) {
+    draw();
+    lastFrame = time;
   }
-  matrixFrame = requestAnimationFrame(animateMatrix);
+
+  requestAnimationFrame(animate);
 }
 
-resizeMatrix();
-window.addEventListener("resize", resizeMatrix);
-matrixFrame = requestAnimationFrame(animateMatrix);
+resize();
+window.addEventListener("resize", resize);
+requestAnimationFrame(animate);
 
-/* COUNTDOWN: BRASILIA TIME, UTC-3 */
 const target = Date.parse("2026-11-01T03:00:00Z");
 
-const ids = {
-  days: document.getElementById("days"),
-  hours: document.getElementById("hours"),
-  minutes: document.getElementById("minutes"),
-  seconds: document.getElementById("seconds")
-};
-
-function updateCountdown() {
+function updateTimer() {
   let remaining = Math.max(0, target - Date.now());
 
   const days = Math.floor(remaining / 86400000);
@@ -368,21 +412,26 @@ function updateCountdown() {
   const minutes = Math.floor(remaining / 60000);
   const seconds = Math.floor((remaining % 60000) / 1000);
 
-  ids.days.textContent = String(days).padStart(2, "0");
-  ids.hours.textContent = String(hours).padStart(2, "0");
-  ids.minutes.textContent = String(minutes).padStart(2, "0");
-  ids.seconds.textContent = String(seconds).padStart(2, "0");
+  document.getElementById("days").textContent =
+    String(days).padStart(2, "0");
+
+  document.getElementById("hours").textContent =
+    String(hours).padStart(2, "0");
+
+  document.getElementById("minutes").textContent =
+    String(minutes).padStart(2, "0");
+
+  document.getElementById("seconds").textContent =
+    String(seconds).padStart(2, "0");
 
   if (Date.now() >= target) {
     document.getElementById("message").innerHTML =
-      "THE TIME HAS COME.<br>TRANSMISSION COMPLETE.";
-    document.querySelector(".subtitle").textContent =
-      "SIGNAL RECEIVED.";
+      "YOU MADE IT.<br>:)";
   }
 }
 
-updateCountdown();
-setInterval(updateCountdown, 250);
+updateTimer();
+setInterval(updateTimer, 250);
 </script>
 </body>
 </html>
